@@ -11,23 +11,30 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/main', 'MainController@index')->name('main');
+Route::get('/', 'Auth\LoginController@showLoginForm');
 
-Route::get('/opening', function () {
-    return view('opening.opening');
-});
 
-Route::get('/op2', 'OpeningCController@index');
+Route::get('/schedule', 'ScheduleController@index')->name('schedule.index');
+Route::get('/schedule/{id}', 'ScheduleController@show')->name('schedule.show');
+Route::get('/schedule/create', 'ScheduleController@create')->name('schedule.create');
+Route::post('/schedule/store', 'ScheduleController@store')->name('schedule.store');
+Route::post('/schedule/{id}/edit', 'ScheduleController@edit')->name('schedule.edit');
+Route::post('/schedule/{id}/update', 'ScheduleController@update')->name('schedule.update');
+Route::post('/schedule/{id}/delete', 'ScheduleController@destroy')->name('schedule.destroy');
 
-Route::get('/adminIndex', 'AdminController@index')->name('adminIndex');
-Route::get('/adminShow/{id}', 'AdminController@show')->name('adminShow');
-Route::get('/adminCreate', 'AdminController@create')->name('adminCreate');
-Route::post('/adminStore', 'AdminController@store')->name('adminStore');
-Route::get('/adminEdit/{id}', 'AdminController@edit')->name('adminEdit');
-Route::post('/adminUpdate/{id}', 'AdminController@update')->name('adminUpdate');
+
+Route::get('/contract', 'ContractController@index')->name('contract.index');
+Route::get('/contract/create', 'ContractController@create')->name('contract.create');
+Route::post('/contract/store', 'ContractController@store')->name('contract.store');
+Route::post('/contract/{id}/edit', 'ContractController@edit')->name('contract.edit');
+Route::post('/contract/{id}/update', 'ContractController@update')->name('contract.update');
+Route::post('/contract/{id}/delete', 'ContractController@destroy')->name('contract.destroy');
+Route::get('/contract/{id}', 'ContractController@show')->name('contract.show');
