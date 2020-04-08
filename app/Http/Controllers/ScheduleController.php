@@ -77,7 +77,9 @@ class ScheduleController extends Controller
     {
         $type=Auth::user()->type;
         $schedule = Schedule::find($id);
-        return view('schedule.edit', compact('schedule', 'type'));
+        $artist = User::where('type', "artist")->get();
+        $manager = User::where('type', "manager")->orWhere('type', "admin")->get();
+        return view('schedule.edit', compact('schedule', 'artist', 'manager','type'));
     }
 
     /**

@@ -43,17 +43,16 @@ class ContractController extends Controller
      */
     public function store(ContractFormRequest $request)
     {
-        $contract = new Contract;
-        $contract->name = $request->name;
-        $contract->notes = $request->notes;
-        $contract->end_date = $request->end_date;
-        $contract->company_name = $request->company_name;
-        $contract->manager_id = $request->manager_id;
-        $contract->artist_id = $request->artist_id;
-        $contract->status = $request->status;
+        $schedule = new Contract;
+        $schedule->name = $request->name; 
+        $schedule->notes = $request->note;
+        $schedule->end_date = $request->time;
+        $schedule->manager_id = $request->manager_id; 
+        $schedule->artist_id = $request->artist_id;
+        $schedule->company_name="lala";
+        $schedule->status=0;
 
-        $contract->save();
-
+        $schedule->save();
         return redirect('contract');
     }
 
@@ -80,7 +79,9 @@ class ContractController extends Controller
     {
         $type=Auth::user()->type;
         $contract=Contract::find($id);
-        return view('contract.edit', compact('contract', 'type'));
+        $artist = User::where('type', "artist")->get();
+        $manager = User::where('type', "manager")->orWhere('type', "admin")->get();
+        return view('contract.edit', compact('contract','artist', 'manager',  'type'));
     }
 
     /**
