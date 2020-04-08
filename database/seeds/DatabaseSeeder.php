@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,8 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(AdminSeeder::class);
-        // factory(App\User::class, 2)->create();
-        // factory(App\Apa::class, 2)->create();
+        $this->call([
+            UsersTableSeeder::class,
+            ContractsTableSeeder::class,
+            SchedulesTableSeeder::class,
+        ]);
     }
 }
